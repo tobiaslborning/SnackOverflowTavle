@@ -9,6 +9,7 @@ const io = new Server(server);
 let lastPurchasedProducts = [];
 
 // Middleware to parse the JSON body of the incoming requests
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 
