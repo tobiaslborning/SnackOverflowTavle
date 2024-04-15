@@ -42,3 +42,16 @@ h1 {
     font-weight: normal;
     margin-top: 0px;
 }
+
+.animate {
+    animation: changeBackgroundOnPurchase 3s forwards;
+}
+
+@keyframes changeBackgroundOnPurchase {
+    0% {
+        background-color: rgb(103, 202, 103); /* Start color */
+    }
+    100% {
+        background-color: #fafafa; /* End color */
+    }
+}
