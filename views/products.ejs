@@ -40,11 +40,13 @@
             mainContainer.style.backgroundColor = "#bf2020";
             mainContainer.style.color = "#ffffff";
 
-            let purchaseText = document.createElement('h3');
-            purchaseText.textContent = 'Endret pris:';
-
             let productsDiv = document.getElementById('products');
             productsDiv.innerHTML = ''; // Clear the div
+
+            let purchaseText = document.createElement('h3');
+            purchaseText.textContent = 'Endret pris:';
+            productsDiv.appendChild(purchaseText);
+
             let productElement = document.createElement('p');
             productElement.className= 'productName';
             productElement.textContent = product[0];
