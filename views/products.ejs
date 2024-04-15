@@ -22,8 +22,15 @@
             // Loop through the products and add them to the div
             products.forEach(product => {
                 let productElement = document.createElement('p');
-                productElement.textContent = product.quantity + ' stk ' + product.name + ' - ' + (product.unitPrice / 100) + ' kr';
+                productElement.className= 'productName';
+                productElement.textContent = product.name;
                 productsDiv.appendChild(productElement);
+
+                productElement = document.createElement('p');
+                productElement.className = 'productInfo';
+                productElement.textContent = product.quantity + ' stk - '((product.unitPrice * product.quantity) / 100) + ' kr';
+                productsDiv.appendChild(productElement);
+                
             });
         });
 
@@ -32,10 +39,20 @@
             let mainContainer = document.getElementById("mainContainer");
             mainContainer.style.backgroundColor = "#bf2020";
             mainContainer.style.color = "#ffffff";
+
+            let purchaseText = document.createElement('h3');
+            purchaseText.textContent = 'Endret pris:';
+
             let productsDiv = document.getElementById('products');
             productsDiv.innerHTML = ''; // Clear the div
             let productElement = document.createElement('p');
-            productElement.textContent = product[0] + ' endret pris til ' + (product[1]/100) +' kr';
+            productElement.className= 'productName';
+            productElement.textContent = product[0];
+            productsDiv.appendChild(productElement);
+
+            productElement = document.createElement('p');
+            productElement.className= 'productInfo';
+            productElement.textContent = "Pris er nå satt til " + (product[1]/100) +' kr';
             productsDiv.appendChild(productElement);
         });
     </script>
@@ -45,7 +62,11 @@
     <div id="mainContainer" class="mainContainer">
         <div id="products" class="productContainer">
             <h3>Siste kjøp</h3>
-            <p>1 stk Powerking Zero - 10 kr</p>
+            <p class="productName">Powerking Zero (Test)</p>
+            <p class="productInfo">2 stk - 20 kr</p>
+
+            <p class="productName">Big 100 Bar Peanut&Caramel 100g Pf (Test)</p>
+            <p class="productInfo">1 stk - 28 kr</p>
         </div>
         <div id="edit" class="editContainer">
 
