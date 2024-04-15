@@ -10,12 +10,13 @@
             // Update the page with the new products
             // This will depend on how your page is structured
             console.log(products);
-
+            let mainContainer = document.getElementById("mainContainer");
+            mainContainer.style.backgroundColor = "#fafafa";
             // Access the products in your HTML body
             // Assuming you have a div with id "products" in your body
-            let productsDiv = document.getElementById('products');
+            let productsDiv = document.getElementById('edit');
             productsDiv.innerHTML = ''; // Clear the div
-            let purchaseText = document.createElement('p');
+            let purchaseText = document.createElement('h3');
             purchaseText.textContent = 'Siste kjøp:';
             productsDiv.appendChild(purchaseText);
             // Loop through the products and add them to the div
@@ -28,6 +29,9 @@
 
         socket.on('edit', function(product) {
             console.log(product);
+            let mainContainer = document.getElementById("mainContainer");
+            mainContainer.style.backgroundColor = "#bf2020";
+            mainContainer.style.color = "#ffffff";
             let productsDiv = document.getElementById('products');
             productsDiv.innerHTML = ''; // Clear the div
             let productElement = document.createElement('p');
@@ -38,6 +42,14 @@
 </head>
 <body>
     <h1>SnackOverflow</h1>
-    <div id="products"></div>
+    <div id="mainContainer" class="mainContainer">
+        <div id="products" class="productContainer">
+            <h3>Siste kjøp</h3>
+            <p>1 stk Powerking Zero - 10 kr</p>
+        </div>
+        <div id="edit" class="editContainer">
+
+        </div>
+    </div>
 </body>
 </html>
