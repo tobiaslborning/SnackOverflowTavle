@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 
 app.post('/webhook', (req, res) => {
     // console.log('Received a POST request on /webhook');
-    // console.log('Body:', req.body); 
+    console.log('Body:', req.body); 
     // You can add your logic here to handle the webhook
     // Parse the payload field in the body
     const payload = JSON.parse(req.body.payload);
@@ -50,7 +50,12 @@ app.post('/webhook', (req, res) => {
         console.log('Total Amount:', (payments[0].amount / 100));
         io.emit('purchase', lastPurchasedProducts);
     }
-    res.sendStatus(200);
+    if (lastPurchasedProducts.length > 0) {
+        io.emit('purchase', lastPurchasedProducts)
+    }
+    else {
+        res.sendStatus(200);
+    }
 });
 
 app.get('/webhook', (req, res) => {

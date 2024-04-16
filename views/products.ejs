@@ -6,18 +6,20 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
+
         socket.on('purchase', function(products) {
             // Update the page with the new products
             // This will depend on how your page is structured
             console.log(products);
             let mainContainer = document.getElementById("mainContainer");
             mainContainer.style.backgroundColor = "#fafafa";
+            mainContainer.style.color = "#333";
             mainContainer.classList.remove('animate');
             void mainContainer.offsetWidth;
             mainContainer.classList.add('animate');
             // Access the products in your HTML body
             // Assuming you have a div with id "products" in your body
-            let productsDiv = document.getElementById('edit');
+            let productsDiv = document.getElementById('products');
             productsDiv.innerHTML = ''; // Clear the div
             let purchaseText = document.createElement('h3');
             purchaseText.textContent = 'Siste kjøp:';
@@ -60,6 +62,8 @@
             productElement.textContent = "Pris er nå satt til " + (product[1]/100) +' kr';
             productsDiv.appendChild(productElement);
         });
+
+
     </script>
 </head>
 <body>
