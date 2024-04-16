@@ -6,7 +6,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-
         socket.on('purchase', function(products) {
             // Update the page with the new products
             // This will depend on how your page is structured
@@ -33,7 +32,7 @@
 
                 productElement = document.createElement('p');
                 productElement.className = 'productInfo';
-                productElement.textContent = product.quantity + ' stk - '((product.unitPrice * product.quantity) / 100) + ' kr';
+                productElement.textContent = product.quantity + ' stk - ' + ((product.unitPrice * product.quantity) / 100) + ' kr';
                 productsDiv.appendChild(productElement);
                 
             });
@@ -42,6 +41,8 @@
         socket.on('edit', function(product) {
             console.log(product);
             let mainContainer = document.getElementById("mainContainer");
+            mainContainer.classList.remove('animate');
+            void mainContainer.offsetWidth;
             mainContainer.style.backgroundColor = "#bf2020";
             mainContainer.style.color = "#ffffff";
 
@@ -71,7 +72,7 @@
     <h1>SnackOverflow</h1>
     <div id="mainContainer" class="mainContainer">
         <div id="products" class="productContainer">
-            <p>Ingen kjøpsinfo</p>
+
         </div>
     </div>
     <div class="infoSection">

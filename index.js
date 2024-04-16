@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 
 app.post('/webhook', (req, res) => {
     // console.log('Received a POST request on /webhook');
-    console.log('Body:', req.body); 
+    console.log('Body:', req.body.eventName); 
     // You can add your logic here to handle the webhook
     // Parse the payload field in the body
     const payload = JSON.parse(req.body.payload);
@@ -36,7 +36,7 @@ app.post('/webhook', (req, res) => {
         console.log('\n----------------------------------------\n');
         io.emit('edit', [productName, productPrice]);
     }
-    if (body.eventName === "PurchaseCreated") {
+    else if (body.eventName === "PurchaseCreated") {
         const products = payload.products;
         const payments = payload.payments;
         console.log('\n----------- PURCHASE CREATED! -----------\n');
@@ -50,19 +50,20 @@ app.post('/webhook', (req, res) => {
         console.log('Total Amount:', (payments[0].amount / 100));
         io.emit('purchase', lastPurchasedProducts);
     }
-    if (lastPurchasedProducts.length > 0) {
-        io.emit('purchase', lastPurchasedProducts)
-    }
-    else {
-        res.sendStatus(200);
-    }
+    res.sendStatus(200);
 });
 
 app.get('/webhook', (req, res) => {
     res.render('products');
+    if (lastPurchasedProducts.length > 0) {
+        console.log("Skal loade products:" + lastPurchasedProducts[0].quantity)
+        setTimeout(() => {
+            io.emit('purchase', lastPurchasedProducts);
+        }, 100);
+    }
 });
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
