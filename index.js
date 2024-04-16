@@ -59,7 +59,7 @@ app.get('/webhook', (req, res) => {
         console.log("Skal loade products:" + lastPurchasedProducts[0].quantity)
         setTimeout(() => {
             io.emit('purchase', lastPurchasedProducts);
-        }, 100);
+        }, 300);
     }
 });
 
