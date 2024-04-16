@@ -63,7 +63,7 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
