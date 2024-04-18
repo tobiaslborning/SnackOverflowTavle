@@ -108,6 +108,21 @@
             internetStatus.appendChild(internetStatusText);
         });
 
+        socket.on('apiStatus', function(status) {
+            let internetStatus = document.getElementById('apiStatus');
+            internetStatus.innerHTML = '';
+            let internetStatusText = document.createElement('p');
+            console.log(status);
+            if (status === "ACTIVE") {
+                internetStatusText.textContent = 'API-tilkobling: Tilkoblet';
+                internetStatus.style.backgroundColor = '#4CAF50';
+            } else {
+                internetStatusText.textContent = 'API-tilkobling: Frakoblet';
+                internetStatus.style.backgroundColor = '#bf2020';
+            }
+            internetStatus.appendChild(internetStatusText);
+        });
+
     </script>
 </head>
 <body>
@@ -122,8 +137,14 @@
         <p>Dersom du fullfører et kjøp, og det ikke kommer opp på skjermen</p>
         <p>Send mail til tobias.borning@abakus.no</p>
     </div>
-    <div id="internetStatus" class="internetStatus">
+    <div class="statusContainer">
+        <div id="internetStatus" class="statusDiv">
 
+        </div>
+        <div id="apiStatus" class="statusDiv">
+
+        </div>
     </div>
+    
 </body>
 </html>

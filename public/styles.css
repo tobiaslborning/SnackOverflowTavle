@@ -68,13 +68,21 @@ h5 {
     margin-top: 35px;
 }
 
-.internetStatus {
-    margin-top: 100px;
-    margin: auto;
+.statusDiv {
+    margin: 5px;
     width: 25%;
     text-align: center;
     padding: 15px;
     border-radius: 15px;
     font-size: large;
     font-weight: bold;
+}
+
+.statusContainer {
+    margin-top: 20px ;
+    display: inline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }

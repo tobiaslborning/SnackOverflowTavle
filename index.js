@@ -6,6 +6,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const axios = require('axios');
 const io = new Server(server);
+const qs = require('qs');
 
 let lastPurchasedProducts = [];
 
@@ -64,7 +65,9 @@ app.get('/webhook', (req, res) => {
     }
 });
 
+
 setInterval(() => {
+    // get internet status
     axios.get('http://www.ntnu.no')
         .then(function (response) {
             io.emit("internetStatus", true);
@@ -73,7 +76,56 @@ setInterval(() => {
             // handle error
             io.emit("internetStatus", false);
         });
+    // get API status    
+    updateApiStatus();
 }, 10000);
+
+
+// get API status
+const updateApiStatus = () => {
+    const data = qs.stringify({
+        'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+        'client_id': '59f506be-f690-11ee-8ac7-757fa522f043',
+        'assertion': 'eyJraWQiOiIwIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJpWmV0dGxlIiwiYXVkIjoiQVBJIiwiZXhwIjoyNjU5Mzg4ODEwLCJzdWIiOiI1NTQ4YzM0ZS1kN2I0LTExZWUtOWI5Mi1lOTViMWU2OWMwMWQiLCJpYXQiOjE3MTI2ODEwMzQsInJlbmV3ZWQiOmZhbHNlLCJjbGllbnRfaWQiOiI1OWY1MDZiZS1mNjkwLTExZWUtOGFjNy03NTdmYTUyMmYwNDMiLCJ0eXBlIjoidXNlci1hc3NlcnRpb24iLCJ1c2VyIjp7InVzZXJUeXBlIjoiVVNFUiIsInV1aWQiOiI1NTQ4YzM0ZS1kN2I0LTExZWUtOWI5Mi1lOTViMWU2OWMwMWQiLCJvcmdVdWlkIjoiNTU0NmFhOTEtZDdiNC0xMWVlLTk2NTctNmE5ZmVkYjE5ZTRlIiwidXNlclJvbGUiOiJPV05FUiJ9LCJzY29wZSI6WyJSRUFEOlBVUkNIQVNFIiwiUkVBRDpQUk9EVUNUIl19.QZ4rD5yhoj2cRofBdxIQiiaPGNxpC_Fwe-rTS6ZX2A7621wF9vM6kkW9kx73gjovJ2ibielpDtNLTA8-C6d8mlvaRGOzmkWy-iZbAt5TEBwV7ZxAWvmCobOl5SlgFrGWIjE5UGv_3uTXj92JHgYmlnLw-BN1iBe0G-4Chh2ONdJj2Ghev-8xWaUcEFd2cV04FUYIjOyVW09rCUu5y3H-GNe65y4ELUdLqnHWV_G-tRCKZKURx0CvNbpZsc2CtSR6Is1I58u5uJPjKMuaqKwL23gVvZeG1qN077Ff-56COHGLiKKigtHPcMg7cGLe1odXdXBDOP18CVMW-PIKhvtelQ'
+    });
+
+    let config = {
+        method: 'post',
+        url: 'https://oauth.zettle.com/token',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+    };
+
+    let accessToken = "";
+    let status = axios(config)
+        .then(function (response) {
+            JSON.stringify(response.data.access_token);
+            accessToken = response.data.access_token;
+
+            const config2 = {
+                method: 'get',
+                url: 'https://pusher.izettle.com/organizations/5546aa91-d7b4-11ee-9657-6a9fedb19e4e/subscriptions',
+                headers: { 
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            };
+
+            axios(config2)
+                .then(function (response) {
+                    JSON.stringify(response.data[0].status);
+                    io.emit('apiStatus',response.data[0].status);
+                })
+                .catch(function (error) {
+                    console.log("error connecting to Zettle - API");
+                });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
+};
 
 const port = process.env.PORT || 80;
 server.listen(port, () => {
