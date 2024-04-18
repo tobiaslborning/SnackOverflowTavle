@@ -94,6 +94,19 @@
             productsDiv.appendChild(productElement);
         });
 
+        socket.on('internetStatus', function(status) {
+            let internetStatus = document.getElementById('internetStatus');
+            internetStatus.innerHTML = '';
+            let internetStatusText = document.createElement('p');
+            if (status) {
+                internetStatusText.textContent = 'Internettforbindelse: Tilkoblet';
+                internetStatus.style.backgroundColor = '#4CAF50';
+            } else {
+                internetStatusText.textContent = 'Internettforbindelse: Frakoblet';
+                internetStatus.style.backgroundColor = '#bf2020';
+            }
+            internetStatus.appendChild(internetStatusText);
+        });
 
     </script>
 </head>
@@ -108,6 +121,9 @@
     <div class="infoSection">
         <p>Dersom du fullfører et kjøp, og det ikke kommer opp på skjermen</p>
         <p>Send mail til tobias.borning@abakus.no</p>
+    </div>
+    <div id="internetStatus" class="internetStatus">
+
     </div>
 </body>
 </html>

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+const axios = require('axios');
 const io = new Server(server);
 
 let lastPurchasedProducts = [];
@@ -62,6 +63,17 @@ app.get('/webhook', (req, res) => {
         }, 1000);
     }
 });
+
+setInterval(() => {
+    axios.get('http://www.ntnu.no')
+        .then(function (response) {
+            io.emit("internetStatus", true);
+        })
+        .catch(function (error) {
+            // handle error
+            io.emit("internetStatus", false);
+        });
+}, 10000);
 
 const port = process.env.PORT || 80;
 server.listen(port, () => {
