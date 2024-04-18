@@ -118,11 +118,13 @@ const updateApiStatus = () => {
                     io.emit('apiStatus',response.data[0].status);
                 })
                 .catch(function (error) {
+                    io.emit('apiStatus', "error");
                     console.log("error connecting to Zettle - API");
                 });
         })
         .catch(function (error) {
             console.log(error);
+            io.emit('apiStatus', "error");
         });
     
 };
