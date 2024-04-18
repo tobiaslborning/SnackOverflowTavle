@@ -4,12 +4,11 @@ body {
     padding: 50px;
 }
 
-h1 {
-    color: #333;
+.imgContainer {
+    margin: auto;
     text-align: center;
-    font-size: 64px;
-    margin-top: 0px;
 }
+
 h5 {
     color: #333;
     text-align: center;
