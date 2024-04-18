@@ -48,7 +48,7 @@ h5 {
 }
 
 .animate {
-    animation: changeBackgroundOnPurchase 3s forwards;
+    animation: changeBackgroundOnPurchase 7s forwards;
 }
 
 @keyframes changeBackgroundOnPurchase {
