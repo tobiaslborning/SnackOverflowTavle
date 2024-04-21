@@ -70,7 +70,7 @@ setInterval(() => {
     // get internet status
     axios.get('http://www.ntnu.no')
         .then(function (response) {
-            io.emit("internetStatus", true);
+            io.emit("internetStatus", response.status === 200);
         })
         .catch(function (error) {
             // handle error

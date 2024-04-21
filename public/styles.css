@@ -1,6 +1,20 @@
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700; /* Bold */
+    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+  }
+
 body {
     background-color: #e7e7e7;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Inter', sans-serif;
     padding: 30px;
 }
 
