@@ -15,7 +15,7 @@
 body {
     background-color: #e7e7e7;
     font-family: 'Inter', sans-serif;
-    padding: 30px;
+    padding: 0px;
 }
 
 .imgContainer {
@@ -83,16 +83,16 @@ h5 {
 
 .statusDiv {
     margin: 5px;
-    width: 25%;
+    width: 17%;
     text-align: center;
-    padding: 15px;
+    padding: 5px;
     border-radius: 15px;
-    font-size: large;
+    font-size: small;
     font-weight: bold;
 }
 
 .statusContainer {
-    margin-top: 20px ;
+    margin-top: 10px ;
     display: inline;
     display: flex;
     justify-content: center;

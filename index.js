@@ -114,8 +114,8 @@ const updateApiStatus = () => {
 
             axios(config2)
                 .then(function (response) {
-                    JSON.stringify(response.data[0].status);
-                    io.emit('apiStatus',response.data[0].status);
+                    io.emit('apiStatus', JSON.parse(JSON.stringify(response.data.filter(e => e.destination === "https://loyal-endlessly-kitten.ngrok-free.app/webhook")[0].status, null, 2)));
+                    console.log("connected to Zettle - API : " + JSON.parse(JSON.stringify(response.data.filter(e => e.destination === "https://loyal-endlessly-kitten.ngrok-free.app/webhook")[0].status, null, 2)));
                 })
                 .catch(function (error) {
                     io.emit('apiStatus', "error");
